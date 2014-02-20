@@ -1,0 +1,16 @@
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Release\myEoffering Helper.exe.config
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Release\myEoffering Helper.exe.manifest
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Release\myEoffering Helper.application
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Release\myEoffering Helper.exe
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Release\myEoffering Helper.pdb
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Release\myEoffering Helper.xml
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Release\MySql.Data.dll
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering_Helper.MEOHelperMain.resources
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering_Helper.Resources.resources
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering Helper.vbproj.GenerateResource.Cache
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering Helper.TrustInfo.xml
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering Helper.exe.manifest
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering Helper.application
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering Helper.exe
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering Helper.xml
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Release\myEoffering Helper.pdb

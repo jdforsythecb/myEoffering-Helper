@@ -1,0 +1,11 @@
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Debug\myEoffering Helper.exe.config
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Debug\myEoffering Helper.exe
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Debug\myEoffering Helper.pdb
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Debug\myEoffering Helper.xml
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Debug\myEoffering_Helper.Resources.resources
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Debug\myEoffering Helper.vbproj.GenerateResource.Cache
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Debug\myEoffering Helper.exe
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Debug\myEoffering Helper.xml
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Debug\myEoffering Helper.pdb
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\obj\Debug\myEoffering_Helper.MEOHelperMain.resources
+G:\jdforsythe\dev\myEoffering Helper\myEoffering Helper\bin\Debug\MySql.Data.dll
