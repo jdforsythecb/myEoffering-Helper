@@ -95,6 +95,7 @@ Imports MySql.Data.MySqlClient
 Imports MySql.Data
 
 Public Class MySQL_Connection
+    Implements IDisposable
     'Public query As String
     'Public sqlCommand As MySqlCommand
     'Public sqlDataReader As MySqlDataReader
@@ -107,6 +108,8 @@ Public Class MySQL_Connection
     Private conn As MySqlConnection
     Private comm As MySqlCommand
     Private data As MySqlDataAdapter
+
+    Private isDisposed As Boolean = False
 
     'Public Sub test()
     '    '' '' create query string
@@ -193,6 +196,10 @@ Public Class MySQL_Connection
 
     '' open a connection based on the properties that have been set manually prior to this being called
     Public Overloads Function openConnection() As Boolean
+        If (isDisposed = True) Then
+            Throw New ObjectDisposedException("Cannot open - connection has been disposed")
+        End If
+
         If ((srv <> "") And (user <> "") And (pw <> "") And (db <> "")) Then
             Try
                 Dim str As String = "Data Source=" & srv & "; user id=" & user & "; password=" & pw & "; database=" & db
@@ -246,11 +253,17 @@ Public Class MySQL_Connection
 
 
     Public Sub closeConnection()
-        conn.Close()
+        If (isDisposed = True) Then
+            Throw New ObjectDisposedException("Cannot close - connection has been disposed")
+        End If
+        Dispose()
     End Sub
 
     '' a select query where you expect only one string returned (one column of one record)
     Public Function selectQueryForSingleValue(ByVal query As String) As String
+        If (isDisposed = True) Then
+            Throw New ObjectDisposedException("Cannot execute query - connection has been disposed")
+        End If
         comm = New MySqlCommand(query, conn)
         Return Convert.ToString(comm.ExecuteScalar())
     End Function
@@ -261,6 +274,9 @@ Public Class MySQL_Connection
     '' where each List.item is a record
     '' and each Dictionary is (key, value) representing each column in the record
     Public Overloads Function selectQuery(ByVal query As String) As List(Of Dictionary(Of String, String))
+        If (isDisposed = True) Then
+            Throw New ObjectDisposedException("Cannot execute query - connection has been disposed")
+        End If
         comm = New MySqlCommand(query, conn)
         Dim allRecords As New List(Of Dictionary(Of String, String))
         Dim record As Dictionary(Of String, String)
@@ -287,6 +303,7 @@ Public Class MySQL_Connection
         End If
 
         reader.Close()
+        comm.Dispose()
 
         Return allRecords
     End Function
@@ -298,6 +315,9 @@ Public Class MySQL_Connection
     '' each (String, String) is a key/value pair for the substitution, e.g. ("@ID", "1234")
     '' returns a List(Of Dictionary(Of String, String)) containing the results of the query
     Public Overloads Function selectQuery(ByVal query As String, valuesToParameterize As Dictionary(Of String, String)) As List(Of Dictionary(Of String, String))
+        If (isDisposed = True) Then
+            Throw New ObjectDisposedException("Cannot execute query - connection has been disposed")
+        End If
         comm = New MySqlCommand(query, conn)
         comm.CommandText = query
 
@@ -333,12 +353,16 @@ Public Class MySQL_Connection
         End If
 
         reader.Close()
+        comm.Dispose()
 
         Return allRecords
     End Function
 
     '' an insert query, returns the number of rows affected
     Public Function insertQuery(ByVal query As String) As Integer
+        If (isDisposed = True) Then
+            Throw New ObjectDisposedException("Cannot execute query - connection has been disposed")
+        End If
         comm = New MySqlCommand(query, conn)
         Return comm.ExecuteNonQuery()
     End Function
@@ -354,6 +378,43 @@ Public Class MySQL_Connection
     Public Function deleteQuery(ByVal query As String) As Integer
         Return insertQuery(query)
     End Function
+
+
+
+
+    '' implementing IDisposable
+    'Public Sub Dispose() Implements System.IDisposable.Dispose
+    Public Overloads Sub Dispose() Implements IDisposable.Dispose
+        Dispose(True)
+        GC.SuppressFinalize(Me)
+    End Sub
+
+    Protected Overridable Overloads Sub Dispose(disposing As Boolean)
+        '' if already disposed, don't do anything
+        If Not (isDisposed) Then
+            If (disposing) Then
+                conn.Close()
+                conn = Nothing
+
+                comm.Dispose()
+                comm = Nothing
+
+                srv = Nothing
+                user = Nothing
+                pw = Nothing
+                db = Nothing
+                dboptions = Nothing
+                data = Nothing
+
+                isDisposed = True
+            End If
+        End If
+
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        Dispose(False)
+    End Sub
 
 
 End Class

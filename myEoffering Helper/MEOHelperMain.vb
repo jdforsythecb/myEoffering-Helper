@@ -12,6 +12,11 @@ Public Class MEOHelperMain
     Private sql As New MySQL_Connection
 
     Private Sub MEOHelperMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    End Sub
+
+
+    Private Sub do_connect()
+        sql = New MySQL_Connection
         '' when the form loads, connect to the mysql server
         sql.server = "208.109.248.69"
         sql.username = "newadmin"
@@ -25,13 +30,15 @@ Public Class MEOHelperMain
 
         If (Not sql.openConnection()) Then
             MessageBox.Show("Connection to database failed. Any database-driven functionality will not work.")
-        Else
-            MessageBox.Show("Connection made")
+            'Else
+            'MessageBox.Show("Connection made")
         End If
     End Sub
 
-
-
+    Private Sub do_disconnect()
+        sql.closeConnection()
+        sql = Nothing
+    End Sub
 
 
 
@@ -195,6 +202,8 @@ Public Class MEOHelperMain
 
     Private Sub getChurchInfo()
         '' we already have the private property "sql" that has an open connection (unless we got an error message)
+        '' x that, we need to create and dispose of the connection to prevent timeouts and memory leaks
+        do_connect()
 
         '    '' build a parameterized query
         '    Dim query As String = "SELECT * FROM ps_parish WHERE id=@ID"
@@ -228,46 +237,66 @@ Public Class MEOHelperMain
 
         Dim results As List(Of Dictionary(Of String, String)) = sql.selectQuery("SELECT * FROM ps_parish WHERE id='" & psid & "' LIMIT 1")
 
-        '' for each record, should iterate only once
-        For Each record As Dictionary(Of String, String) In results
-            '' set text boxes
-            uiTxtChurchName.Text = record.Item("church_name")
-            uiTxtCity.Text = record.Item("city")
-            uiTxtState.Text = record.Item("state")
-            uiTxtZip.Text = record.Item("zip")
+        If (results.Count > 0) Then
 
-            '' set the account status
-            Dim acctStatus As String = record.Item("status")
+            '' for each record, should iterate only once
+            For Each record As Dictionary(Of String, String) In results
+                '' set text boxes
+                uiTxtChurchName.Text = record.Item("church_name")
+                uiTxtCity.Text = record.Item("city")
+                uiTxtState.Text = record.Item("state")
+                uiTxtZip.Text = record.Item("zip")
 
-            If (acctStatus = "0") Then
-                uiTxtAcctStatus.Text = "Disabled"
-            ElseIf (acctStatus = "1") Then
-                uiTxtAcctStatus.Text = "Enabled"
-            Else
-                uiTxtAcctStatus.Text = "Unknown: " & acctStatus
-            End If
+                '' set the account status
+                Dim acctStatus As String = record.Item("status")
 
-            uiTxtContact.Text = record.Item("contact")
-            uiTxtPhone.Text = record.Item("phone")
-            uiTxtPhoneTwo.Text = record.Item("phone_2")
-            uiTxtEmail.Text = record.Item("email")
+                If (acctStatus = "0") Then
+                    uiTxtAcctStatus.Text = "Disabled"
+                ElseIf (acctStatus = "1") Then
+                    uiTxtAcctStatus.Text = "Enabled"
+                Else
+                    uiTxtAcctStatus.Text = "Unknown: " & acctStatus
+                End If
 
-            uiTxtSalesperson.Text = record.Item("sales_person")
+                uiTxtContact.Text = record.Item("contact")
+                uiTxtPhone.Text = record.Item("phone")
+                uiTxtPhoneTwo.Text = record.Item("phone_2")
+                uiTxtEmail.Text = record.Item("email")
 
-            '' which module
-            Dim mdl As String = record.Item("module")
-            If (mdl = "1") Then
-                uiTxtModule.Text = "MyEOffering"
-            ElseIf (mdl = "2") Then
-                uiTxtModule.Text = "Full Access"
-            ElseIf (mdl = "3") Then
-                uiTxtModule.Text = "OLM"
-            Else
-                uiTxtModule.Text = "Unknown: " & mdl
-            End If
+                uiTxtSalesperson.Text = record.Item("sales_person")
 
-        Next
+                '' which module
+                Dim mdl As String = record.Item("module")
+                If (mdl = "1") Then
+                    uiTxtModule.Text = "MyEOffering"
+                ElseIf (mdl = "2") Then
+                    uiTxtModule.Text = "Full Access"
+                ElseIf (mdl = "3") Then
+                    uiTxtModule.Text = "OLM"
+                Else
+                    uiTxtModule.Text = "Unknown: " & mdl
+                End If
 
+            Next
+
+        Else
+            '' no results, give error and clear the output fields
+            uiTxtChurchName.Text = ""
+            uiTxtCity.Text = ""
+            uiTxtState.Text = ""
+            uiTxtZip.Text = ""
+            uiTxtAcctStatus.Text = ""
+            uiTxtContact.Text = ""
+            uiTxtPhone.Text = ""
+            uiTxtPhoneTwo.Text = ""
+            uiTxtEmail.Text = ""
+            uiTxtSalesperson.Text = ""
+            uiTxtModule.Text = ""
+            MessageBox.Show("No results for this PSID")
+
+        End If
+
+        do_disconnect()
     End Sub
 
 End Class
