@@ -71,7 +71,7 @@ Partial Class MEOHelperMain
         '
         Me.uiChkListMaterials.CheckOnClick = True
         Me.uiChkListMaterials.FormattingEnabled = True
-        Me.uiChkListMaterials.Items.AddRange(New Object() {"Bulletin", "Poster", "Letter", "HTML"})
+        Me.uiChkListMaterials.Items.AddRange(New Object() {"Bulletin", "Poster", "Letter", "HTML", "QR Code"})
         Me.uiChkListMaterials.Location = New System.Drawing.Point(15, 84)
         Me.uiChkListMaterials.Name = "uiChkListMaterials"
         Me.uiChkListMaterials.Size = New System.Drawing.Size(142, 79)

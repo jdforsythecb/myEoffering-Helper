@@ -100,7 +100,6 @@ Public Class MEOHelperMain
                     createTemplate(DesignTemplates.TemplateTypes.Letter)
                 Case "HTML"
                     createHTML()
-
                 Case "QR Code"
                     createQR()
             End Select
