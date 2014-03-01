@@ -49,6 +49,7 @@ Partial Class MEOHelperMain
         Me.Label11 = New System.Windows.Forms.Label()
         Me.uiTxtModule = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.uiBtnClearForm = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'uiTxtPSID
@@ -271,11 +272,21 @@ Partial Class MEOHelperMain
         Me.Label12.TabIndex = 25
         Me.Label12.Text = "Module"
         '
+        'uiBtnClearForm
+        '
+        Me.uiBtnClearForm.Location = New System.Drawing.Point(15, 53)
+        Me.uiBtnClearForm.Name = "uiBtnClearForm"
+        Me.uiBtnClearForm.Size = New System.Drawing.Size(141, 23)
+        Me.uiBtnClearForm.TabIndex = 27
+        Me.uiBtnClearForm.Text = "Clear"
+        Me.uiBtnClearForm.UseVisualStyleBackColor = True
+        '
         'MEOHelperMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(614, 403)
+        Me.Controls.Add(Me.uiBtnClearForm)
         Me.Controls.Add(Me.uiTxtModule)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.uiTxtSalesperson)
@@ -336,5 +347,6 @@ Partial Class MEOHelperMain
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents uiTxtModule As System.Windows.Forms.TextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents uiBtnClearForm As System.Windows.Forms.Button
 
 End Class
