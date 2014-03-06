@@ -27,8 +27,8 @@
     <ProductName>MEO Helper</ProductName>
     <PublisherName>Church Budget Envelope Company</PublisherName>
     <SuiteName>MyEOffering</SuiteName>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -112,7 +112,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesignTemplates.vb" />
+    <Compile Include="SortListView\ColumnHeaderSortable.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SortListView\ListViewColumnSorter.vb" />
+    <Compile Include="DesignTemplates\DesignTemplates.vb" />
     <Compile Include="MEOHelperMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -135,7 +139,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="MySQL_Connection.vb" />
+    <Compile Include="MySQL_Connection\MySQL_Connection.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MEOHelperMain.resx">

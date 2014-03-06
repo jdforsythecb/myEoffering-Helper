@@ -22,6 +22,17 @@ Public Class MEOHelperMain
     Private sql As New MySQL_Connection
 
     Private Sub MEOHelperMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        '' when the form loads, we add columns to the uiLstVwSearchResults with the modified ColumnHeaderSortable
+        '' set to Details view (to show column headers)
+        uiLstVwSearchResults.View = View.Details
+        '' ad columns using the ColumnHeaderSortable class - the fourth parameter specifies True for ascending, false for descending
+        uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("PSID", 40, HorizontalAlignment.Left, True))
+        uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("Church", 250, HorizontalAlignment.Left, True))
+        uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("City", 120, HorizontalAlignment.Left, True))
+        uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("ST", 30, HorizontalAlignment.Left, True))
+
+        '' add the event handler for the ListView.ColumnClick
+        AddHandler uiLstVwSearchResults.ColumnClick, AddressOf uiLstVwSearchResults_ColumnClick
     End Sub
 
     '' SQL STATE ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -80,6 +91,7 @@ Public Class MEOHelperMain
 
     Private Sub displayChurchInfo(ByVal churchInfo As Dictionary(Of String, String))
         '' set text boxes
+        uiTxtPSID.Text = churchInfo.Item("id")
         uiTxtChurchName.Text = churchInfo.Item("church_name")
         uiTxtCity.Text = churchInfo.Item("city")
         uiTxtState.Text = churchInfo.Item("state")
@@ -207,6 +219,13 @@ Public Class MEOHelperMain
 
    
     Private Sub getChurchInfoByField(ByVal field As SearchFields, ByVal value As String)
+
+        '' clear list box of search results
+        uiLstVwSearchResults.Items.Clear()
+
+        '' clear text fields of search results
+        clearChurchInfoBoxes()
+
         '' make and SQL connection
         do_connect()
 
@@ -240,8 +259,9 @@ Public Class MEOHelperMain
         If (results.Count = 1) Then
             displayChurchInfo(results.Item(0))
         ElseIf (results.Count > 1) Then
-            MessageBox.Show(results.Count & " Results")
-            displayChurchInfo(results.Item(0))
+
+            '' if there's more than one result we need to populate the uiLstViewSearchResults.items
+            populateSearchResults(results)
         Else
             MessageBox.Show("No results")
         End If
@@ -251,7 +271,18 @@ Public Class MEOHelperMain
     End Sub
 
 
-
+    Private Sub populateSearchResults(results As List(Of Dictionary(Of String, String)))
+        For Each result As Dictionary(Of String, String) In results
+            '' with each record, add an entry to the list view - built a listviewitem
+            Dim resultItem As New ListViewItem
+            resultItem.Text = result.Item("id")
+            resultItem.SubItems.Add(result.Item("church_name"))
+            resultItem.SubItems.Add(result.Item("city"))
+            resultItem.SubItems.Add(result.Item("state"))
+            '' add the listviewitem to the listview
+            uiLstVwSearchResults.Items.Add(resultItem)
+        Next
+    End Sub
 
 
 
@@ -307,6 +338,7 @@ Public Class MEOHelperMain
 
         clearCheckboxes()
         clearChurchInfoBoxes()
+        uiLstVwSearchResults.Items.Clear()
 
         '' this is our only validation - that the number is 4 digits
         Dim psidnum As String = uiTxtPSID.Text.Trim
@@ -378,7 +410,61 @@ Public Class MEOHelperMain
         End If
     End Sub
 
+    Private Sub uiBtnCopyToClipboard_Click(sender As Object, e As EventArgs) Handles uiBtnCopyToClipboard.Click
+        Dim clipboardString As String = uiTxtChurchName.Text & Environment.NewLine & _
+                                        uiTxtCity.Text & ", " & uiTxtState.Text & " " & uiTxtZip.Text & Environment.NewLine & _
+                                        uiTxtPhone.Text & Environment.NewLine & _
+                                        uiTxtPhoneTwo.Text & Environment.NewLine & _
+                                        uiTxtContact.Text & Environment.NewLine & _
+                                        uiTxtEmail.Text & Environment.NewLine & _
+                                        "PSID: " & psid & Environment.NewLine & _
+                                        uiTxtModule.Text
+        Clipboard.SetText(clipboardString)
+    End Sub
 
+    Private Sub uiLstVwSearchResults_ColumnClick(ByVal sender As Object, ByVal e As ColumnClickEventArgs)
+        '' create and instance of the ColumnHeaderSortable class
+        Dim clickedColumn As ColumnHeaderSortable = CType(uiLstVwSearchResults.Columns(e.Column), ColumnHeaderSortable)
+
+        ' set the ascending property to sort in the opposite order
+        clickedColumn.ascending = Not clickedColumn.ascending
+
+        ' get the number of items inthe list
+        Dim numItems As Integer = uiLstVwSearchResults.Items.Count
+
+        ' turn off display while data is repopulated
+        uiLstVwSearchResults.BeginUpdate()
+
+        ' populate an ArrayList with a ListViewColumnSorter of each list item
+        Dim SortArray As New ArrayList
+        Dim i As Integer
+        For i = 0 To (numItems - 1)
+            SortArray.Add(New ListViewColumnSorter(uiLstVwSearchResults.Items(i), e.Column))
+        Next
+
+        '' sort the elements in the ArrayList using a new instance of the SortComparer class.
+        '' the parameters are the starting index, the length of the range to sort, and the IComparer implementation to use for comparing elements
+        '' note that the IComparer implementation (SortComparer) requires the sort direction for its constructor - true = ascending
+        SortArray.Sort(0, SortArray.Count, New ListViewColumnSorter.SortComparer(clickedColumn.ascending))
+
+        '' clear the list and repopulate with the sorted items
+        uiLstVwSearchResults.Items.Clear()
+        For i = 0 To (numItems - 1)
+            uiLstVwSearchResults.Items.Add(CType(SortArray(i), ListViewColumnSorter).sortItem)
+        Next
+
+        '' turn display of items in list back on
+        uiLstVwSearchResults.EndUpdate()
+    End Sub
+
+    Private Sub uiLstVwSearchResults_SelectedIndexChanged(sender As Object, e As EventArgs) Handles uiLstVwSearchResults.SelectedIndexChanged
+        '' set the psid to the selected item
+        psid = uiLstVwSearchResults.SelectedItems(0).Text
+        '' set the psid text to reflect the new number
+        uiTxtPSID.Text = psid
+        '' run the search on that psid for the results to populate the text box
+        getChurchInfo()
+    End Sub
 End Class
 
 
