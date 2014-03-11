@@ -90,6 +90,8 @@ Public Class MEOHelperMain
 
 
     Private Sub displayChurchInfo(ByVal churchInfo As Dictionary(Of String, String))
+        '' set the id from our search
+        psid = churchInfo.Item("id")
         '' set text boxes
         uiTxtPSID.Text = churchInfo.Item("id")
         uiTxtChurchName.Text = churchInfo.Item("church_name")
@@ -126,6 +128,9 @@ Public Class MEOHelperMain
         Else
             uiTxtModule.Text = "Unknown: " & mdl
         End If
+
+        '' display login url
+        uiTxtLoginURL.Text = MEO_BASE_URL & psid
     End Sub
 
 
@@ -250,7 +255,7 @@ Public Class MEOHelperMain
                 ' replace(replace(replace(replace(phone, " ", ""), "-", ""), ")", ""), "(", "")'
                 query &= "(replace(replace(replace(replace(phone, ' ', ''), '-', ''), ')', ''), '(', '') LIKE ('%" & value & "%')) OR " & _
                          "(replace(replace(replace(replace(phone_2, ' ', ''), '-', ''), ')', ''), '(', '') LIKE ('%" & value & "%'))"
-                Console.WriteLine(query)
+                'Console.WriteLine(query)
             Case Else
                 Exit Sub
         End Select
@@ -464,6 +469,10 @@ Public Class MEOHelperMain
         uiTxtPSID.Text = psid
         '' run the search on that psid for the results to populate the text box
         getChurchInfo()
+    End Sub
+
+    Private Sub uiBtnCopyURLToClipboard_Click(sender As Object, e As EventArgs) Handles uiBtnCopyURLToClipboard.Click
+        If (uiTxtLoginURL.Text.Trim <> "") Then Clipboard.SetText(uiTxtLoginURL.Text.Trim)
     End Sub
 End Class
 

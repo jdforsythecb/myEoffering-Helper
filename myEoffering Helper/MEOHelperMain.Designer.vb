@@ -54,6 +54,9 @@ Partial Class MEOHelperMain
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.uiLstVwSearchResults = New System.Windows.Forms.ListView()
+        Me.uiTxtLoginURL = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.uiBtnCopyURLToClipboard = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -300,7 +303,7 @@ Partial Class MEOHelperMain
         '
         'uiBtnCopyToClipboard
         '
-        Me.uiBtnCopyToClipboard.Location = New System.Drawing.Point(83, 349)
+        Me.uiBtnCopyToClipboard.Location = New System.Drawing.Point(83, 346)
         Me.uiBtnCopyToClipboard.Name = "uiBtnCopyToClipboard"
         Me.uiBtnCopyToClipboard.Size = New System.Drawing.Size(148, 23)
         Me.uiBtnCopyToClipboard.TabIndex = 28
@@ -334,7 +337,7 @@ Partial Class MEOHelperMain
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Location = New System.Drawing.Point(167, 22)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(371, 408)
+        Me.GroupBox1.Size = New System.Drawing.Size(371, 377)
         Me.GroupBox1.TabIndex = 29
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Contact Info"
@@ -345,7 +348,7 @@ Partial Class MEOHelperMain
         Me.GroupBox2.Controls.Add(Me.uiBtnOpenFolder)
         Me.GroupBox2.Controls.Add(Me.uiBtn_CreateMaterials)
         Me.GroupBox2.Controls.Add(Me.uiChkListMaterials)
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 221)
+        Me.GroupBox2.Location = New System.Drawing.Point(15, 97)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(142, 208)
         Me.GroupBox2.TabIndex = 30
@@ -363,11 +366,40 @@ Partial Class MEOHelperMain
         Me.uiLstVwSearchResults.UseCompatibleStateImageBehavior = False
         Me.uiLstVwSearchResults.View = System.Windows.Forms.View.Details
         '
+        'uiTxtLoginURL
+        '
+        Me.uiTxtLoginURL.Location = New System.Drawing.Point(15, 409)
+        Me.uiTxtLoginURL.Name = "uiTxtLoginURL"
+        Me.uiTxtLoginURL.Size = New System.Drawing.Size(456, 20)
+        Me.uiTxtLoginURL.TabIndex = 29
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(12, 386)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(61, 13)
+        Me.Label13.TabIndex = 29
+        Me.Label13.Text = "Login URL:"
+        Me.Label13.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'uiBtnCopyURLToClipboard
+        '
+        Me.uiBtnCopyURLToClipboard.Location = New System.Drawing.Point(477, 409)
+        Me.uiBtnCopyURLToClipboard.Name = "uiBtnCopyURLToClipboard"
+        Me.uiBtnCopyURLToClipboard.Size = New System.Drawing.Size(61, 23)
+        Me.uiBtnCopyURLToClipboard.TabIndex = 29
+        Me.uiBtnCopyURLToClipboard.Text = "Copy"
+        Me.uiBtnCopyURLToClipboard.UseVisualStyleBackColor = True
+        '
         'MEOHelperMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(996, 438)
+        Me.Controls.Add(Me.uiBtnCopyURLToClipboard)
+        Me.Controls.Add(Me.Label13)
+        Me.Controls.Add(Me.uiTxtLoginURL)
         Me.Controls.Add(Me.uiLstVwSearchResults)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -415,5 +447,8 @@ Partial Class MEOHelperMain
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents uiLstVwSearchResults As System.Windows.Forms.ListView
+    Friend WithEvents uiTxtLoginURL As System.Windows.Forms.TextBox
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents uiBtnCopyURLToClipboard As System.Windows.Forms.Button
 
 End Class
