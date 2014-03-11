@@ -438,7 +438,7 @@ Public Class MEOHelperMain
         Dim numItems As Integer = uiLstVwSearchResults.Items.Count
 
         ' turn off display while data is repopulated
-        uiLstVwSearchResults.BeginUpdate()
+        'uiLstVwSearchResults.BeginUpdate()
 
         ' populate an ArrayList with a ListViewColumnSorter of each list item
         Dim SortArray As New ArrayList
@@ -459,12 +459,12 @@ Public Class MEOHelperMain
         Next
 
         '' turn display of items in list back on
-        uiLstVwSearchResults.EndUpdate()
+        'uiLstVwSearchResults.EndUpdate()
     End Sub
 
     Private Sub uiLstVwSearchResults_SelectedIndexChanged(sender As Object, e As EventArgs) Handles uiLstVwSearchResults.SelectedIndexChanged
         '' set the psid to the selected item
-        psid = uiLstVwSearchResults.SelectedItems(0).Text
+        If (uiLstVwSearchResults.SelectedItems.Count() = 1) Then psid = uiLstVwSearchResults.SelectedItems(0).Text
         '' set the psid text to reflect the new number
         uiTxtPSID.Text = psid
         '' run the search on that psid for the results to populate the text box

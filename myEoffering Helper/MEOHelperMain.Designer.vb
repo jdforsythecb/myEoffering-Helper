@@ -360,6 +360,7 @@ Partial Class MEOHelperMain
         Me.uiLstVwSearchResults.FullRowSelect = True
         Me.uiLstVwSearchResults.GridLines = True
         Me.uiLstVwSearchResults.Location = New System.Drawing.Point(544, 27)
+        Me.uiLstVwSearchResults.MultiSelect = False
         Me.uiLstVwSearchResults.Name = "uiLstVwSearchResults"
         Me.uiLstVwSearchResults.Size = New System.Drawing.Size(445, 402)
         Me.uiLstVwSearchResults.TabIndex = 31
