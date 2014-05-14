@@ -6,6 +6,7 @@ Public Class DesignTemplates
     Private Const TEMPLATEBULLETIN As String = "G:\myeoffering\Design Files\MEO Bulletin.indd"
     Private Const TEMPLATEPOSTER As String = "G:\myeoffering\Design Files\MEO Poster.indd"
     Private Const TEMPLATELETTER As String = "G:\myeoffering\Design Files\MEO Letter - Intro to members.indd"
+    Private Const TEMPLATEHALFLETTER As String = "G:\myeoffering\Design Files\MEO Bulletin Half-Letter.indd"
 
     '' save path
     Private Const SAVEPATH As String = "g:\myeoffering\marketing_materials\"
@@ -15,7 +16,8 @@ Public Class DesignTemplates
         Bulletin = 1
         Poster = 2
         Letter = 3
-        HTML = 4
+        HalfLetter = 4
+        HTML = 5
     End Enum
 
     '' private copies of the public properties
@@ -116,6 +118,11 @@ Public Class DesignTemplates
             Case TemplateTypes.Letter
                 Return TEMPLATELETTER
 
+            Case TemplateTypes.HalfLetter
+                Return TEMPLATEHALFLETTER
+
+
+
             Case Else
                 Return ""
         End Select
@@ -132,6 +139,9 @@ Public Class DesignTemplates
 
             Case TemplateTypes.Letter
                 Return psidnum & " MEO Letter - intro to members.indd"
+
+            Case TemplateTypes.HalfLetter
+                Return psidnum & " MEO Bulletin Half-Letter.indd"
 
             Case Else
                 Return ""

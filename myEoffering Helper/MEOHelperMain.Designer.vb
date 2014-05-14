@@ -81,15 +81,15 @@ Partial Class MEOHelperMain
         '
         Me.uiChkListMaterials.CheckOnClick = True
         Me.uiChkListMaterials.FormattingEnabled = True
-        Me.uiChkListMaterials.Items.AddRange(New Object() {"Bulletin", "Poster", "Letter", "HTML", "QR Code"})
+        Me.uiChkListMaterials.Items.AddRange(New Object() {"Bulletin", "Poster", "Letter", "Bulletin (Half)", "HTML", "QR Code"})
         Me.uiChkListMaterials.Location = New System.Drawing.Point(20, 26)
         Me.uiChkListMaterials.Name = "uiChkListMaterials"
-        Me.uiChkListMaterials.Size = New System.Drawing.Size(99, 79)
+        Me.uiChkListMaterials.Size = New System.Drawing.Size(99, 109)
         Me.uiChkListMaterials.TabIndex = 2
         '
         'uiBtn_CreateMaterials
         '
-        Me.uiBtn_CreateMaterials.Location = New System.Drawing.Point(20, 120)
+        Me.uiBtn_CreateMaterials.Location = New System.Drawing.Point(20, 145)
         Me.uiBtn_CreateMaterials.Name = "uiBtn_CreateMaterials"
         Me.uiBtn_CreateMaterials.Size = New System.Drawing.Size(99, 23)
         Me.uiBtn_CreateMaterials.TabIndex = 3
@@ -98,7 +98,7 @@ Partial Class MEOHelperMain
         '
         'uiBtnOpenFolder
         '
-        Me.uiBtnOpenFolder.Location = New System.Drawing.Point(20, 166)
+        Me.uiBtnOpenFolder.Location = New System.Drawing.Point(20, 191)
         Me.uiBtnOpenFolder.Name = "uiBtnOpenFolder"
         Me.uiBtnOpenFolder.Size = New System.Drawing.Size(99, 23)
         Me.uiBtnOpenFolder.TabIndex = 4
@@ -350,7 +350,7 @@ Partial Class MEOHelperMain
         Me.GroupBox2.Controls.Add(Me.uiChkListMaterials)
         Me.GroupBox2.Location = New System.Drawing.Point(15, 97)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(142, 208)
+        Me.GroupBox2.Size = New System.Drawing.Size(142, 229)
         Me.GroupBox2.TabIndex = 30
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Marketing"

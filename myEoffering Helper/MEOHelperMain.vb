@@ -142,7 +142,7 @@ Public Class MEOHelperMain
 
         Dim html As New StringBuilder()
 
-        html.AppendLine("<!--Snip Start-->")
+        html.AppendLine("<!-- Old Style Button -->")
         html.AppendLine("<div align=""center"" style=""cursor:pointer;background-color:#fff;padding:0px;width:250px;"" >")
         html.AppendLine("  <div style=""background-color:#fff;border:3px solid #CCCC66;padding:3px;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;"">")
         html.AppendLine("    <a href=""http://www.myeoffering.com/eonline/index.php/dashboard/login/" & psid & """ target=""_blank""/>")
@@ -153,7 +153,25 @@ Public Class MEOHelperMain
         html.AppendLine("    </a>")
         html.AppendLine("  </div>")
         html.AppendLine("</div>")
-        html.AppendLine("<!--Snip End-->")
+        html.AppendLine("<!-- End Old Style Button -->")
+
+        html.AppendLine("<!-- Button Choice 1 (250px * 108px) -->")
+        html.AppendLine("<link rel=""stylesheet"" href=""http://www.churchbudget.com/res/meo/MEOButtonStyle.php?large"" type=""text/css"" />")
+        html.AppendLine("<div class=""MEObutton"" id=""MEOLg""><a id=""MEOLgAnchor"" href=""http://www.myeoffering.com/eonline/index.php/dashboard/login/" & psid & """ target=""_blank"">Donate Now</a></div>")
+        html.AppendLine("<!-- End Button Choice 1 -->")
+        html.AppendLine()
+
+        html.AppendLine("<!-- Button Choice 2 (350px * 48px) -->")
+        html.AppendLine("<link rel=""stylesheet"" href=""http://www.churchbudget.com/res/meo/MEOButtonStyle.php?wide"" type=""text/css"" />")
+        html.AppendLine("<div class=""MEObutton"" id=""MEOWide""><a id=""MEOWideAnchor"" href=""http://www.myeoffering.com/eonline/index.php/dashboard/login/" & psid & """ target=""_blank"">Donate Now</a></div>")
+        html.AppendLine("<!-- End Button Choice 2 -->")
+        html.AppendLine()
+
+        html.AppendLine("<!-- Button Choice 3 (250px * 58px) -->")
+        html.AppendLine("<link rel=""stylesheet"" href=""http://www.churchbudget.com/res/meo/MEOButtonStyle.php?small"" type=""text/css"" />")
+        html.AppendLine("<div class=""MEObutton"" id=""MEOSm""><a id=""MEOSmAnchor"" href=""http://www.myeoffering.com/eonline/index.php/dashboard/login/" & psid & """ target=""_blank"">Donate Now</a></div>")
+        html.AppendLine("<!-- End Button Choice 3 -->")
+        html.AppendLine()
 
         'MessageBox.Show(html.ToString())
 
@@ -311,6 +329,8 @@ Public Class MEOHelperMain
                     createTemplate(DesignTemplates.TemplateTypes.Poster)
                 Case "Letter"
                     createTemplate(DesignTemplates.TemplateTypes.Letter)
+                Case "Bulletin (Half)"
+                    createTemplate(DesignTemplates.TemplateTypes.HalfLetter)
                 Case "HTML"
                     createHTML()
                 Case "QR Code"
