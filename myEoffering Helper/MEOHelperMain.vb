@@ -34,8 +34,8 @@ Public Class MEOHelperMain
         uiLstVwSearchResults.View = View.Details
         '' ad columns using the ColumnHeaderSortable class - the fourth parameter specifies True for ascending, false for descending
         uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("PSID", 40, HorizontalAlignment.Left, True))
-        uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("Church", 250, HorizontalAlignment.Left, True))
-        uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("City", 120, HorizontalAlignment.Left, True))
+        uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("Church", 235, HorizontalAlignment.Left, True))
+        uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("City", 115, HorizontalAlignment.Left, True))
         uiLstVwSearchResults.Columns.Add(New ColumnHeaderSortable("ST", 30, HorizontalAlignment.Left, True))
 
         '' add the event handler for the ListView.ColumnClick
@@ -241,9 +241,11 @@ Public Class MEOHelperMain
 
         If (results.Count > 0) Then
             displayChurchInfo(results.Item(0))
+            updateResultsCount(1)
         Else
             '' no results, give error and clear the output fields
             clearChurchInfoBoxes()
+            updateResultsCount(0)
             MessageBox.Show("No results for this PSID")
         End If
         '' disconnect from SQL
@@ -318,6 +320,7 @@ Public Class MEOHelperMain
 
 
     Private Sub populateSearchResults(results As List(Of Dictionary(Of String, String)))
+        updateResultsCount(results.Count)
         For Each result As Dictionary(Of String, String) In results
             '' with each record, add an entry to the list view - built a listviewitem
             Dim resultItem As New ListViewItem
@@ -525,6 +528,9 @@ Public Class MEOHelperMain
         If (uiTxtLoginURL.Text.Trim <> "") Then Clipboard.SetText(uiTxtLoginURL.Text.Trim)
     End Sub
 
+    Private Sub updateResultsCount(ByRef newCount As Integer)
+        uiLblResultsCount.Text = newCount & " results"
+    End Sub
 End Class
 
 

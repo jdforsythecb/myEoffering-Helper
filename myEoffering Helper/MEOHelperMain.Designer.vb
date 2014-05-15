@@ -57,6 +57,7 @@ Partial Class MEOHelperMain
         Me.uiTxtLoginURL = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.uiBtnCopyURLToClipboard = New System.Windows.Forms.Button()
+        Me.uiLblResultsCount = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -393,11 +394,21 @@ Partial Class MEOHelperMain
         Me.uiBtnCopyURLToClipboard.Text = "Copy"
         Me.uiBtnCopyURLToClipboard.UseVisualStyleBackColor = True
         '
+        'uiLblResultsCount
+        '
+        Me.uiLblResultsCount.AutoSize = True
+        Me.uiLblResultsCount.Location = New System.Drawing.Point(547, 434)
+        Me.uiLblResultsCount.Name = "uiLblResultsCount"
+        Me.uiLblResultsCount.Size = New System.Drawing.Size(46, 13)
+        Me.uiLblResultsCount.TabIndex = 32
+        Me.uiLblResultsCount.Text = "0 results"
+        '
         'MEOHelperMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(996, 438)
+        Me.ClientSize = New System.Drawing.Size(996, 451)
+        Me.Controls.Add(Me.uiLblResultsCount)
         Me.Controls.Add(Me.uiBtnCopyURLToClipboard)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.uiTxtLoginURL)
@@ -451,5 +462,6 @@ Partial Class MEOHelperMain
     Friend WithEvents uiTxtLoginURL As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents uiBtnCopyURLToClipboard As System.Windows.Forms.Button
+    Friend WithEvents uiLblResultsCount As System.Windows.Forms.Label
 
 End Class
