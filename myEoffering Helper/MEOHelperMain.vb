@@ -15,6 +15,13 @@ Public Class MEOHelperMain
         Contact = 5
         Phone = 6
         Email = 7
+        ModuleType = 8
+    End Enum
+
+    Private Enum ModuleTypes As Integer
+        MyEOffering = 1
+        FullAccess = 2
+        OLM = 3
     End Enum
 
     Private psid As String = ""
@@ -118,16 +125,19 @@ Public Class MEOHelperMain
         uiTxtSalesperson.Text = churchInfo.Item("sales_person")
 
         '' which module
-        Dim mdl As String = churchInfo.Item("module")
-        If (mdl = "1") Then
-            uiTxtModule.Text = "MyEOffering"
-        ElseIf (mdl = "2") Then
-            uiTxtModule.Text = "Full Access"
-        ElseIf (mdl = "3") Then
-            uiTxtModule.Text = "OLM"
-        Else
-            uiTxtModule.Text = "Unknown: " & mdl
-        End If
+        'Dim mdl As String = churchInfo.Item("module")
+        Dim mdl As Integer
+        Int32.TryParse(churchInfo.Item("module"), mdl)
+        Select Case mdl
+            Case ModuleTypes.MyEOffering
+                uiTxtModule.Text = "myEoffering"
+            Case ModuleTypes.FullAccess
+                uiTxtModule.Text = "Full Access"
+            Case ModuleTypes.OLM
+                uiTxtModule.Text = "OLM"
+            Case Else
+                uiTxtModule.Text = "Unknown Module: " & mdl
+        End Select
 
         '' display login url
         uiTxtLoginURL.Text = MEO_BASE_URL & psid
@@ -240,7 +250,7 @@ Public Class MEOHelperMain
         do_disconnect()
     End Sub
 
-   
+
     Private Sub getChurchInfoByField(ByVal field As SearchFields, ByVal value As String)
 
         '' clear list box of search results
@@ -274,6 +284,19 @@ Public Class MEOHelperMain
                 query &= "(replace(replace(replace(replace(phone, ' ', ''), '-', ''), ')', ''), '(', '') LIKE ('%" & value & "%')) OR " & _
                          "(replace(replace(replace(replace(phone_2, ' ', ''), '-', ''), ')', ''), '(', '') LIKE ('%" & value & "%'))"
                 'Console.WriteLine(query)
+            Case SearchFields.ModuleType
+                Dim int As String
+                Select Case value
+                    Case "myeoffering", "meo", "myEoffering"
+                        int = ModuleTypes.MyEOffering
+                    Case "ps", "tcs", "full", "Full Access"
+                        int = ModuleTypes.FullAccess
+                    Case "olm", "OLM"
+                        int = ModuleTypes.OLM
+                    Case Else
+                        int = "0"
+                End Select
+                query &= "module='" & int & "'"
             Case Else
                 Exit Sub
         End Select
@@ -435,6 +458,13 @@ Public Class MEOHelperMain
         End If
     End Sub
 
+    Private Sub uiTxtModule_KeyDown(sender As Object, e As KeyEventArgs) Handles uiTxtModule.KeyDown
+        '' only turn to a good state when pressing enter
+        If (e.KeyCode = Keys.Return) Then
+            getChurchInfoByField(SearchFields.ModuleType, uiTxtModule.Text)
+        End If
+    End Sub
+
     Private Sub uiBtnCopyToClipboard_Click(sender As Object, e As EventArgs) Handles uiBtnCopyToClipboard.Click
         Dim clipboardString As String = uiTxtChurchName.Text & Environment.NewLine & _
                                         uiTxtCity.Text & ", " & uiTxtState.Text & " " & uiTxtZip.Text & Environment.NewLine & _
@@ -494,6 +524,7 @@ Public Class MEOHelperMain
     Private Sub uiBtnCopyURLToClipboard_Click(sender As Object, e As EventArgs) Handles uiBtnCopyURLToClipboard.Click
         If (uiTxtLoginURL.Text.Trim <> "") Then Clipboard.SetText(uiTxtLoginURL.Text.Trim)
     End Sub
+
 End Class
 
 
